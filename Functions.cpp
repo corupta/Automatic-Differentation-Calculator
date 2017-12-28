@@ -4,127 +4,131 @@
 #include <cmath>
 #include "Functions.h"
 
+funcPtr Functions::functions[funcTypeLen];
+funcPtr Functions::derivatives[funcTypeLen];
+std::map <std::string, FuncType> Functions::funcNames;
+
 // one parameter functions
-long double getCos(Variable *a, Variable *b = NULL) {
+long double Functions::getCos(Variable *a, Variable *b) {
   return cos(a -> getComputedValue());
 }
 
-long double getSin(Variable *a, Variable *b = NULL) {
+long double Functions::getSin(Variable *a, Variable *b) {
   return sin(a -> getComputedValue());
 }
 
-long double getTan(Variable *a, Variable *b = NULL) {
+long double Functions::getTan(Variable *a, Variable *b) {
   return tan(a -> getComputedValue());
 }
 
-long double getACos(Variable *a, Variable *b = NULL) {
-  return cos(a -> getComputedValue());
+long double Functions::getACos(Variable *a, Variable *b) {
+  return acos(a -> getComputedValue());
 }
 
-long double getASin(Variable *a, Variable *b = NULL) {
-  return sin(a -> getComputedValue());
+long double Functions::getASin(Variable *a, Variable *b) {
+  return asin(a -> getComputedValue());
 }
 
-long double getATan(Variable *a, Variable *b = NULL) {
-  return tan(a -> getComputedValue());
+long double Functions::getATan(Variable *a, Variable *b) {
+  return atan(a -> getComputedValue());
 }
 
-long double getExp(Variable *a, Variable *b = NULL) {
+long double Functions::getExp(Variable *a, Variable *b) {
   return exp(a -> getComputedValue());
 }
 
-long double getLog(Variable *a, Variable *b = NULL) {
+long double Functions::getLog(Variable *a, Variable *b) {
   return log(a -> getComputedValue());
 }
 
-long double getSqrt(Variable *a, Variable *b = NULL) {
+long double Functions::getSqrt(Variable *a, Variable *b) {
   return sqrt(a -> getComputedValue());
 }
 
 // one parameter derivative functions
-long double deriveCos(Variable *a, Variable *b = NULL) {
+long double Functions::deriveCos(Variable *a, Variable *b) {
   return -getSin(a) * a -> getDerivativeValue();
 }
 
-long double deriveSin(Variable *a, Variable *b = NULL) {
+long double Functions::deriveSin(Variable *a, Variable *b) {
   return getCos(a) * a -> getDerivativeValue();
 }
 
-long double deriveTan(Variable *a, Variable *b = NULL) {
+long double Functions::deriveTan(Variable *a, Variable *b) {
   return 1.0L / pow(getCos(a), 2) * a -> getDerivativeValue();
 }
 
-long double deriveACos(Variable *a, Variable *b = NULL) {
+long double Functions::deriveACos(Variable *a, Variable *b) {
   return (-1.0L / sqrt(1.0L - pow(a -> getComputedValue(), 2))) * a -> getDerivativeValue();
 }
 
-long double deriveASin(Variable *a, Variable *b = NULL) {
+long double Functions::deriveASin(Variable *a, Variable *b) {
   return (1.0L / sqrt(1.0L - pow(a -> getComputedValue(), 2))) * a -> getDerivativeValue();
 }
 
-long double deriveATan(Variable *a, Variable *b = NULL) {
+long double Functions::deriveATan(Variable *a, Variable *b) {
   return (1.0L / (1.0L + pow(a -> getComputedValue(), 2))) * a -> getDerivativeValue();
 }
 
-long double deriveExp(Variable *a, Variable *b = NULL) {
+long double Functions::deriveExp(Variable *a, Variable *b) {
   return getExp(a) * b -> getDerivativeValue();
 }
 
-long double deriveLog(Variable *a, Variable *b = NULL) {
+long double Functions::deriveLog(Variable *a, Variable *b) {
   return (1.0L / a -> getComputedValue()) * a -> getDerivativeValue();
 }
 
-long double deriveSqrt(Variable *a, Variable *b = NULL) {
+long double Functions::deriveSqrt(Variable *a, Variable *b) {
   return (1.0L / (2.0L * getSqrt(a))) * a -> getDerivativeValue();
 }
 
 // two parameter functions
-long double getMult(Variable *a, Variable *b) {
+long double Functions::getMult(Variable *a, Variable *b) {
   return a -> getComputedValue() * b -> getComputedValue();
 }
 
-long double getAdd(Variable *a, Variable *b) {
+long double Functions::getAdd(Variable *a, Variable *b) {
   return a -> getComputedValue() + b -> getComputedValue();
 }
 
-long double getSubs(Variable *a, Variable *b) {
+long double Functions::getSubs(Variable *a, Variable *b) {
   return a -> getComputedValue() - b -> getComputedValue();
 }
 
-long double getDivide(Variable *a, Variable *b) {
+long double Functions::getDivide(Variable *a, Variable *b) {
   return a -> getComputedValue() / b -> getComputedValue();
 }
 
-long double getPow(Variable *a, Variable *b) {
+long double Functions::getPow(Variable *a, Variable *b) {
   return pow(a -> getComputedValue(), b -> getComputedValue());
 }
 
 // two parameter derivates
-long double deriveMult(Variable *a, Variable *b) {
+long double Functions::deriveMult(Variable *a, Variable *b) {
   return a -> getDerivativeValue() * b -> getComputedValue() + a -> getComputedValue() * b -> getDerivativeValue();
 }
 
-long double deriveAdd(Variable *a, Variable *b) {
+long double Functions::deriveAdd(Variable *a, Variable *b) {
   return a -> getDerivativeValue() + b -> getDerivativeValue();
 }
 
-long double deriveSubs(Variable *a, Variable *b) {
+long double Functions::deriveSubs(Variable *a, Variable *b) {
   return a -> getDerivativeValue() - b -> getDerivativeValue();
 }
 
-long double deriveDivide(Variable *a, Variable *b) {
+long double Functions::deriveDivide(Variable *a, Variable *b) {
   return (a -> getDerivativeValue() * b -> getComputedValue() - a -> getComputedValue() * b -> getDerivativeValue()) /
          pow(b -> getComputedValue(), 2);
 }
 
-long double derivePow(Variable *a, Variable *b) {
+long double Functions::derivePow(Variable *a, Variable *b) {
   // includes cases such as x^x => (a^b)' = e^bloga * (b'loga + ba'/a)
   return exp(b -> getComputedValue() * getLog(a)) * (b -> getDerivativeValue() * getLog(a) +
                                                      b -> getComputedValue() * a -> getDerivativeValue() /
                                                      a -> getComputedValue());
 }
 
-void fillFunctionPointers() {
+void Functions::fillFunctionPointers() {
   functions[COS] = getCos;
   functions[SIN] = getSin;
   functions[TAN] = getTan;
@@ -156,7 +160,7 @@ void fillFunctionPointers() {
   derivatives[POW] = derivePow;
 }
 
-void setFunctionNames() {
+void Functions::setFunctionNames() {
   funcNames["COS"] = COS;
   funcNames["SIN"] = SIN;
   funcNames["TAN"] = TAN;
@@ -175,14 +179,14 @@ void setFunctionNames() {
 }
 
 
-void initializeFunctions() {
+void Functions::initializeFunctions() {
   fillFunctionPointers();
   setFunctionNames();
 }
 
 
 // returns the enum value of the function, given its name as a string) such as "cos" => COS
-FuncType getFuncType(std::string func) {
+FuncType Functions::getFuncType(std::string func) {
   // convert the function name to upper case, so that both cos and Cos and cOS, etc. can be used.
   for (auto &c : func) {
     c = toupper(c);
@@ -191,7 +195,7 @@ FuncType getFuncType(std::string func) {
 }
 
 // returns true if the op is a binary operation and false otherwise. (Not to be called with "CONSTANT")
-bool isOperationBinary(FuncType op) {
+bool Functions::isOperationBinary(FuncType op) {
   // since the functions are enum, and from COS to SQRT they're unary operations (0-8)
   // and from ADD to POW they're binary operations (9 - 13)
   // a simple comparison check is enough

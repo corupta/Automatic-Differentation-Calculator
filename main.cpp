@@ -5,7 +5,10 @@
 #include <fstream>
 #include <map>
 #include <vector>
+#include <iomanip>
+//#include <iomanip>
 #include "Variable.h"
+#include "Functions.h"
 
 using namespace std;
 
@@ -14,10 +17,6 @@ vector<string> inputVariables;
 string outputVariable;
 
 int inputVariableLen = 0;
-
-Variable *getVariable(string const &variableName) {
-  return variableMap[variableName];
-}
 
 Variable *createVariable(string const &variableName) {
   Variable *res;
@@ -59,11 +58,12 @@ int main(int argc, char *argv[]) {
   ofstream outputValuesFile(argv[3]), derivativeValuesFile(argv[4]);
 
   // make some initializations about sin/cos/mult/etc. functions.
-  initalizeFunctions();
+  Functions::initializeFunctions();
 
   // read function definitions
   string a, b, c, opString;
   Variable *var1, *var2, *var3;
+
   while (true) {
     functionDefinitionFile >> a;
     if (!functionDefinitionFile . good()) {
@@ -74,11 +74,11 @@ int main(int argc, char *argv[]) {
       // assignment line
       functionDefinitionFile >> opString >> b;
       // a = (opString) b c => opString is the operation, a/b/c are variables. (b/c can be constant too)
-      FuncType op = getFuncType(opString);
-      var1 = getVariable(a);
+      FuncType op = Functions::getFuncType(opString);
+      var1 = createVariable(a);
       var1 -> setFuncType(op);
       var2 = createVariable(b);
-      if (isOperationBinary(op)) {
+      if (Functions::isOperationBinary(op)) {
         functionDefinitionFile >> c;
         var3 = createVariable(c);
       } else {
@@ -100,6 +100,12 @@ int main(int argc, char *argv[]) {
   }
 
   // check if there's any cycle
+  if (variableMap[outputVariable]->cycleCheck()) {
+    // there's a cycle
+    outputValuesFile << "ERROR: COMPUTATION GRAPH HAS CYCLE!" << endl;
+    derivativeValuesFile << "ERROR: COMPUTATION GRAPH HAS CYCLE!" << endl;
+    return 0;
+  }
 
   // read input & solve
 
@@ -115,6 +121,10 @@ int main(int argc, char *argv[]) {
     derivativeValuesFile << "d" << outputVariable << "/d" << inputVariables[i] << " ";
   }
   derivativeValuesFile << endl;
+
+  // set doubles to print as fixed notation
+  outputValuesFile << fixed << setprecision(20);
+  derivativeValuesFile << fixed << setprecision(20);
 
   long double val;
   while (true) {
@@ -135,6 +145,11 @@ int main(int argc, char *argv[]) {
     }
     // clean does not work on func type constant (constant/input)
     outputValuesFile << variableMap[outputVariable] -> getComputedValue() << endl;
+
+    for (auto &&it : variableMap) {
+      cerr << it.first << " -> " << it.second ->getComputedValue() << endl;
+    }
+    cerr << endl;
     // calculate derivatives
     for (int i = 0; i < inputVariableLen; ++i) {
       for (auto &&it : variableMap) {

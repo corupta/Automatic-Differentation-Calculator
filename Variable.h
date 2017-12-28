@@ -6,7 +6,7 @@
 #define PROJECT4_VARIABLE_H
 
 #include <iostream>
-#include "Functions.h"
+#include "defs.h"
 #include "Value.h"
 
 using namespace std;
@@ -16,9 +16,11 @@ class Variable {
   Variable *left, *right;
   Value computedValue;
   Value derivativeValue;
+  int cycleState;
+  // 0 not visited, 1 visited, 2 finished
 public:
 
-  explicit Variable(FuncType = CONSTANT, Variable *left = NULL, Variable *right = NULL);
+  explicit Variable(FuncType myType = CONSTANT, Variable *left = NULL, Variable *right = NULL);
 
   // rest
   long double getComputedValue();
@@ -35,6 +37,8 @@ public:
   void setFuncType(FuncType);
 
   void setVariables(Variable *left, Variable *right = NULL);
+
+  bool cycleCheck();
 
 };
 
