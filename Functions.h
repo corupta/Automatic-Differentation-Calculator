@@ -7,7 +7,7 @@
 #ifndef PROJECT4_FUNCTIONS_H
 #define PROJECT4_FUNCTIONS_H
 
-#include "../Variable.h"
+#include "Variable.h"
 #include <string>
 #include <map>
 

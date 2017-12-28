@@ -183,7 +183,10 @@ void initializeFunctions() {
 
 // returns the enum value of the function, given its name as a string) such as "cos" => COS
 FuncType getFuncType(std::string func) {
-  // todo write func.upper() instead of func below
+  // convert the function name to upper case, so that both cos and Cos and cOS, etc. can be used.
+  for (auto &c : func) {
+    c = toupper(c);
+  }
   return funcNames[func];
 }
 

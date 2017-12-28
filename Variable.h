@@ -6,7 +6,7 @@
 #define PROJECT4_VARIABLE_H
 
 #include <iostream>
-#include "Functions/Functions.h"
+#include "Functions.h"
 #include "Value.h"
 
 using namespace std;
