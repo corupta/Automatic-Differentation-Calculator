@@ -38,6 +38,7 @@ public:
 
   void setVariables(Variable *left, Variable *right = NULL);
 
+  // returns true if there's a cycle in the subtree
   bool cycleCheck();
 
 };

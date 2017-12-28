@@ -71,7 +71,7 @@ long double Functions::deriveATan(Variable *a, Variable *b) {
 }
 
 long double Functions::deriveExp(Variable *a, Variable *b) {
-  return getExp(a) * b -> getDerivativeValue();
+  return getExp(a) * a -> getDerivativeValue();
 }
 
 long double Functions::deriveLog(Variable *a, Variable *b) {

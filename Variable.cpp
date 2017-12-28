@@ -6,7 +6,7 @@
 #include "Functions.h"
 #include <iostream>
 Variable::Variable(FuncType myType, Variable *left, Variable *right)
-    : myType(myType), left(left), right(right), cycleState(0) {}
+    : myType(myType), left(left), right(right), cycleState(0) { }
 
 long double Variable::getComputedValue() {
   if (computedValue . isEmpty()) {

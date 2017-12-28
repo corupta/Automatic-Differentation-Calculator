@@ -140,19 +140,15 @@ int main(int argc, char *argv[]) {
     }
     // INPUT VALUES ARE SET
     // calculate result
-    for (auto &&it : variableMap) {
+    for (auto &it : variableMap) {
       it . second -> cleanVariable();
     }
     // clean does not work on func type constant (constant/input)
     outputValuesFile << variableMap[outputVariable] -> getComputedValue() << endl;
 
-    for (auto &&it : variableMap) {
-      cerr << it.first << " -> " << it.second ->getComputedValue() << endl;
-    }
-    cerr << endl;
     // calculate derivatives
     for (int i = 0; i < inputVariableLen; ++i) {
-      for (auto &&it : variableMap) {
+      for (auto &it : variableMap) {
         it . second -> cleanVariable();
       }
       variableMap[inputVariables[i]] -> setDerivativeValue(1);
