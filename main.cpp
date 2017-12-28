@@ -18,6 +18,8 @@ string outputVariable;
 
 int inputVariableLen = 0;
 
+// creates a variable with the given name, if it's not created yet
+// returns a pointer to the created / already created variable.
 Variable *createVariable(string const &variableName) {
   Variable *res;
   long double val;

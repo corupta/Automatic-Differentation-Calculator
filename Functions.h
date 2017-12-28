@@ -12,6 +12,9 @@
 #include <string>
 #include <map>
 
+// used function pointers and a static class so that each function can be accessed as Functions::functions[FuncType and Functions::derivatives[FuncType]
+// FuncType is an enum of sin/cos/atan/mult, etc.
+
 typedef long double (*funcPtr)(Variable*, Variable*);
 
 class Functions {
@@ -57,13 +60,16 @@ private:
 public:
   static funcPtr functions[funcTypeLen];
   static funcPtr derivatives[funcTypeLen];
+  // a map to get enum value of each function name
   static std::map <std::string, FuncType> funcNames;
 
-
+  // initialize functions, derivatives array (set function pointers)
   static void initializeFunctions();
 
+  // returnns the FuncType equivalent of a given function name as a string
   static FuncType getFuncType(std::string);
 
+  // returns true if the given function takes two parameters
   static bool isOperationBinary(FuncType);
 };
 
