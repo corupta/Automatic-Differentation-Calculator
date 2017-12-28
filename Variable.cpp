@@ -17,7 +17,7 @@ long double Variable::getComputedValue() {
 
 long double Variable::getDerivativeValue() {
   if (derivativeValue . isEmpty()) {
-    derivativeValue . setValue(Functions::functions[myType](left, right));
+    derivativeValue . setValue(Functions::derivatives[myType](left, right));
   }
   return derivativeValue . getValue();
 }

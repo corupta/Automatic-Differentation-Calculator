@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
   }
 
   // check if there's any cycle
-  if (variableMap[outputVariable]->cycleCheck()) {
+  if (variableMap[outputVariable] -> cycleCheck()) {
     // there's a cycle
     outputValuesFile << "ERROR: COMPUTATION GRAPH HAS CYCLE!" << endl;
     derivativeValuesFile << "ERROR: COMPUTATION GRAPH HAS CYCLE!" << endl;
@@ -145,6 +145,7 @@ int main(int argc, char *argv[]) {
     }
     // clean does not work on func type constant (constant/input)
     outputValuesFile << variableMap[outputVariable] -> getComputedValue() << endl;
+
 
     // calculate derivatives
     for (int i = 0; i < inputVariableLen; ++i) {

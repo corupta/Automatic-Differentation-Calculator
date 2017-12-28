@@ -6,7 +6,7 @@
 
 funcPtr Functions::functions[funcTypeLen];
 funcPtr Functions::derivatives[funcTypeLen];
-std::map <std::string, FuncType> Functions::funcNames;
+std::map<std::string, FuncType> Functions::funcNames;
 
 // one parameter functions
 long double Functions::getCos(Variable *a, Variable *b) {
@@ -47,85 +47,87 @@ long double Functions::getSqrt(Variable *a, Variable *b) {
 
 // one parameter derivative functions
 long double Functions::deriveCos(Variable *a, Variable *b) {
-  return -getSin(a) * a -> getDerivativeValue();
+  return -getSin(a) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveSin(Variable *a, Variable *b) {
-  return getCos(a) * a -> getDerivativeValue();
+  return getCos(a) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveTan(Variable *a, Variable *b) {
-  return 1.0L / pow(getCos(a), 2) * a -> getDerivativeValue();
+  return 1.0L / pow(getCos(a), 2) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveACos(Variable *a, Variable *b) {
-  return (-1.0L / sqrt(1.0L - pow(a -> getComputedValue(), 2))) * a -> getDerivativeValue();
+  return (-1.0L / sqrt(1.0L - pow(a -> getComputedValue(), 2))) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveASin(Variable *a, Variable *b) {
-  return (1.0L / sqrt(1.0L - pow(a -> getComputedValue(), 2))) * a -> getDerivativeValue();
+  return (1.0L / sqrt(1.0L - pow(a -> getComputedValue(), 2))) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveATan(Variable *a, Variable *b) {
-  return (1.0L / (1.0L + pow(a -> getComputedValue(), 2))) * a -> getDerivativeValue();
+  return (1.0L / (1.0L + pow(a -> getComputedValue(), 2))) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveExp(Variable *a, Variable *b) {
-  return getExp(a) * a -> getDerivativeValue();
+  return getExp(a) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveLog(Variable *a, Variable *b) {
-  return (1.0L / a -> getComputedValue()) * a -> getDerivativeValue();
+  return (1.0L / (a -> getComputedValue())) * (a -> getDerivativeValue());
 }
 
 long double Functions::deriveSqrt(Variable *a, Variable *b) {
-  return (1.0L / (2.0L * getSqrt(a))) * a -> getDerivativeValue();
+  return (1.0L / (2.0L * getSqrt(a))) * (a -> getDerivativeValue());
 }
 
 // two parameter functions
 long double Functions::getMult(Variable *a, Variable *b) {
-  return a -> getComputedValue() * b -> getComputedValue();
+  return (a -> getComputedValue()) * (b -> getComputedValue());
 }
 
 long double Functions::getAdd(Variable *a, Variable *b) {
-  return a -> getComputedValue() + b -> getComputedValue();
+  return (a -> getComputedValue()) + (b -> getComputedValue());
 }
 
 long double Functions::getSubs(Variable *a, Variable *b) {
-  return a -> getComputedValue() - b -> getComputedValue();
+  return (a -> getComputedValue()) - (b -> getComputedValue());
 }
 
 long double Functions::getDivide(Variable *a, Variable *b) {
-  return a -> getComputedValue() / b -> getComputedValue();
+  return (a -> getComputedValue()) / (b -> getComputedValue());
 }
 
 long double Functions::getPow(Variable *a, Variable *b) {
-  return pow(a -> getComputedValue(), b -> getComputedValue());
+  return pow(a -> getComputedValue(), (b -> getComputedValue()));
 }
 
 // two parameter derivates
 long double Functions::deriveMult(Variable *a, Variable *b) {
-  return a -> getDerivativeValue() * b -> getComputedValue() + a -> getComputedValue() * b -> getDerivativeValue();
+  return (a -> getDerivativeValue()) * (b -> getComputedValue()) +
+         (a -> getComputedValue()) * (b -> getDerivativeValue());
 }
 
 long double Functions::deriveAdd(Variable *a, Variable *b) {
-  return a -> getDerivativeValue() + b -> getDerivativeValue();
+  return (a -> getDerivativeValue()) + (b -> getDerivativeValue());
 }
 
 long double Functions::deriveSubs(Variable *a, Variable *b) {
-  return a -> getDerivativeValue() - b -> getDerivativeValue();
+  return (a -> getDerivativeValue()) - (b -> getDerivativeValue());
 }
 
 long double Functions::deriveDivide(Variable *a, Variable *b) {
-  return (a -> getDerivativeValue() * b -> getComputedValue() - a -> getComputedValue() * b -> getDerivativeValue()) /
+  return ((a -> getDerivativeValue()) * (b -> getComputedValue()) -
+          (a -> getComputedValue()) * (b -> getDerivativeValue())) /
          pow(b -> getComputedValue(), 2);
 }
 
 long double Functions::derivePow(Variable *a, Variable *b) {
   // includes cases such as x^x => (a^b)' = e^bloga * (b'loga + ba'/a)
-  return exp(b -> getComputedValue() * getLog(a)) * (b -> getDerivativeValue() * getLog(a) +
-                                                     b -> getComputedValue() * a -> getDerivativeValue() /
-                                                     a -> getComputedValue());
+  return exp(b -> getComputedValue() * getLog(a)) * ((b -> getDerivativeValue()) * getLog(a) +
+                                                     (b -> getComputedValue()) * (a -> getDerivativeValue()) /
+                                                     (a -> getComputedValue()));
 }
 
 void Functions::fillFunctionPointers() {
@@ -199,6 +201,6 @@ bool Functions::isOperationBinary(FuncType op) {
   // since the functions are enum, and from COS to SQRT they're unary operations (0-8)
   // and from ADD to POW they're binary operations (9 - 13)
   // a simple comparison check is enough
-  return (int)op > (int)SQRT;
+  return (int) op > (int) SQRT;
   // an alternative implementation would be using a switch case statement for enums.
 }
