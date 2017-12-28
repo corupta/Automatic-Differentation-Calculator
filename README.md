@@ -53,6 +53,27 @@ Written values are different. values = 246290442436.101715 and 246192925599.8577
 Don't know why but maybe using doubles instead of long doubles would fix it. 
 (Maybe not, I'm tired and stressed out, so I'll just stop working on it)
 
+## My Solution
+
+I used function pointers and a tree structure that's similar to the given template. 
+There are variables which are either inputs, constants, 
+unary functions of another variables, or binary functions of another variables.
+
+Also, it was important to use dynamic programming 
+(adding a simple flag to check if a value was previously computed)
+so that the program wouldn't run extremely slow.
+
+I solved the cycle check problem, by making a dfs and keeping a visited flag on 
+visited nodes until they're finished (all of their children is traversed and finished),
+and I set a finished flag then. If a node has a child that is visited but not finished.
+That means, this child is also the parent of parent of ... the current node, so the graph is cyclic.
+
+I used long double to get high precision on my values.
+
+I also experimented using function pointers. So, instead of creating sin, cos, etc. classes I used function pointers,
+such as functions[SIN] gave me a function that calculates the sine of a given Variable. 
+Similarly, derivations[SIN] gave me the derivation of that function.  
+
 ## How to compile
 
 In a terminal, call commands:
