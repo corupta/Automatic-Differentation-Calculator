@@ -6,9 +6,9 @@
 
 Value::Value() : empty(true) {}
 
-Value::Value(long double val) : val(val), empty(false) {}
+Value::Value(double val) : val(val), empty(false) {}
 
-void Value::setValue(long double val) {
+void Value::setValue(double val) {
   empty = false;
   this -> val = val;
 }
@@ -21,6 +21,6 @@ bool Value::isEmpty() {
   return empty;
 }
 
-long double Value::getValue() {
+double Value::getValue() {
   return val;
 }

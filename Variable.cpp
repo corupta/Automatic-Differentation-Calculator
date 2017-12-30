@@ -8,14 +8,14 @@
 Variable::Variable(FuncType myType, Variable *left, Variable *right)
     : myType(myType), left(left), right(right), cycleState(0) { }
 
-long double Variable::getComputedValue() {
+double Variable::getComputedValue() {
   if (computedValue . isEmpty()) {
     computedValue . setValue(Functions::functions[myType](left, right));
   }
   return computedValue . getValue();
 }
 
-long double Variable::getDerivativeValue() {
+double Variable::getDerivativeValue() {
   if (derivativeValue . isEmpty()) {
     derivativeValue . setValue(Functions::derivatives[myType](left, right));
   }
@@ -29,11 +29,11 @@ void Variable::cleanVariable() {
   }
 }
 
-void Variable::setComputedValue(long double val) {
+void Variable::setComputedValue(double val) {
   computedValue . setValue(val);
 }
 
-void Variable::setDerivativeValue(long double val) {
+void Variable::setDerivativeValue(double val) {
   // val is either 1 or 0
   derivativeValue . setValue(val);
 }

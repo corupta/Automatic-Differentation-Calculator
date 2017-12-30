@@ -15,45 +15,45 @@
 // used function pointers and a static class so that each function can be accessed as Functions::functions[FuncType and Functions::derivatives[FuncType]
 // FuncType is an enum of sin/cos/atan/mult, etc.
 
-typedef long double (*funcPtr)(Variable*, Variable*);
+typedef double (*funcPtr)(Variable*, Variable*);
 
 class Functions {
 private:
   // unary functions
-  static long double getCos(Variable*a, Variable*b=NULL);
-  static long double getSin(Variable*a, Variable*b=NULL);
-  static long double getTan(Variable*a, Variable*b=NULL);
-  static long double getACos(Variable*a, Variable*b=NULL);
-  static long double getASin(Variable*a, Variable*b=NULL);
-  static long double getATan(Variable*a, Variable*b=NULL);
-  static long double getExp(Variable*a, Variable*b=NULL);
-  static long double getLog(Variable*a, Variable*b=NULL);
-  static long double getSqrt(Variable*a, Variable*b=NULL);
+  static double getCos(Variable*a, Variable*b=NULL);
+  static double getSin(Variable*a, Variable*b=NULL);
+  static double getTan(Variable*a, Variable*b=NULL);
+  static double getACos(Variable*a, Variable*b=NULL);
+  static double getASin(Variable*a, Variable*b=NULL);
+  static double getATan(Variable*a, Variable*b=NULL);
+  static double getExp(Variable*a, Variable*b=NULL);
+  static double getLog(Variable*a, Variable*b=NULL);
+  static double getSqrt(Variable*a, Variable*b=NULL);
 
   // binary functions
-  static long double getAdd(Variable*a, Variable*b);
-  static long double getMult(Variable*a, Variable*b);
-  static long double getSubs(Variable*a, Variable*b);
-  static long double getDivide(Variable*a, Variable*b);
-  static long double getPow(Variable*a, Variable*b);
+  static double getAdd(Variable*a, Variable*b);
+  static double getMult(Variable*a, Variable*b);
+  static double getSubs(Variable*a, Variable*b);
+  static double getDivide(Variable*a, Variable*b);
+  static double getPow(Variable*a, Variable*b);
 
   // unary function derivations
-  static long double deriveCos(Variable*a, Variable*b=NULL);
-  static long double deriveSin(Variable*a, Variable*b=NULL);
-  static long double deriveTan(Variable*a, Variable*b=NULL);
-  static long double deriveACos(Variable*a, Variable*b=NULL);
-  static long double deriveASin(Variable*a, Variable*b=NULL);
-  static long double deriveATan(Variable*a, Variable*b=NULL);
-  static long double deriveExp(Variable*a, Variable*b=NULL);
-  static long double deriveLog(Variable*a, Variable*b=NULL);
-  static long double deriveSqrt(Variable*a, Variable*b=NULL);
+  static double deriveCos(Variable*a, Variable*b=NULL);
+  static double deriveSin(Variable*a, Variable*b=NULL);
+  static double deriveTan(Variable*a, Variable*b=NULL);
+  static double deriveACos(Variable*a, Variable*b=NULL);
+  static double deriveASin(Variable*a, Variable*b=NULL);
+  static double deriveATan(Variable*a, Variable*b=NULL);
+  static double deriveExp(Variable*a, Variable*b=NULL);
+  static double deriveLog(Variable*a, Variable*b=NULL);
+  static double deriveSqrt(Variable*a, Variable*b=NULL);
 
   // binary function derivations
-  static long double deriveAdd(Variable*a, Variable*b);
-  static long double deriveMult(Variable*a, Variable*b);
-  static long double deriveSubs(Variable*a, Variable*b);
-  static long double deriveDivide(Variable*a, Variable*b);
-  static long double derivePow(Variable*a, Variable*b);
+  static double deriveAdd(Variable*a, Variable*b);
+  static double deriveMult(Variable*a, Variable*b);
+  static double deriveSubs(Variable*a, Variable*b);
+  static double deriveDivide(Variable*a, Variable*b);
+  static double derivePow(Variable*a, Variable*b);
   static void fillFunctionPointers();
   static void setFunctionNames();
 

@@ -22,7 +22,7 @@ int inputVariableLen = 0;
 // returns a pointer to the created / already created variable.
 Variable *createVariable(string const &variableName) {
   Variable *res;
-  long double val;
+  double val;
   try {
     val = stold(variableName);
     // is constant
@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
   outputValuesFile << fixed << setprecision(20);
   derivativeValuesFile << fixed << setprecision(20);
 
-  long double val;
+  double val;
   while (true) {
     for (int i = 0; i < inputVariableLen; ++i) {
       inputValuesFile >> val;

@@ -8,17 +8,17 @@
 
 class Value {
 private:
-  long double val;
+  double val;
   bool empty;
 public:
   // creates an empty value class
   Value();
 
   // sets the current value (creates a non empty value class)
-  explicit Value(long double);
+  explicit Value(double);
 
   // sets the current value, and updates empty flag (to false)
-  void setValue(long double);
+  void setValue(double);
 
   // sets empty flag to true
   void clean();
@@ -27,7 +27,7 @@ public:
   bool isEmpty();
 
   // returns the current value
-  long double getValue();
+  double getValue();
 };
 
 

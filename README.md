@@ -1,6 +1,12 @@
 # CMPE250_2017Fall_Project4
 
-## About My Submission
+## Long Double to Double - 30.12.2017 03.20 am
+
+I replaced all "long double"s with "double"s and now, I get full points from the test cases.
+So, my previous code was only wrong that it returned too accurate results.
+
+
+## About My Submission - 29.12.2017 00.15 am
 
 I finished the project around 
 

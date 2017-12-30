@@ -25,19 +25,19 @@ public:
   explicit Variable(FuncType myType = CONSTANT, Variable *left = NULL, Variable *right = NULL);
 
   // gets computed value of the current variable if it's not computed yet
-  long double getComputedValue();
+  double getComputedValue();
 
   // gets computed derivative value of the current variable if it's not computed yet
-  long double getDerivativeValue();
+  double getDerivativeValue();
 
   // removes the flags for computed & derivative so that those would be recalculated with neew input.
   void cleanVariable();
 
   // for input & constant case
-  void setComputedValue(long double);
+  void setComputedValue(double);
 
   // for input & constant case => all of them are 0 except the input that's been derived is 1
-  void setDerivativeValue(long double);
+  void setDerivativeValue(double);
 
   // sets the function type such as cos, sin, acos, etc.
   void setFuncType(FuncType);
